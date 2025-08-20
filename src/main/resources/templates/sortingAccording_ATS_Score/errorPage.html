@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Error Page</title>
+	<style>
+		.home-btn {
+		            background-color: #4CAF50; /* Green */
+		            border: none;
+		            color: white;
+		            padding: 12px 24px;
+		            text-align: center;
+		            font-size: 16px;
+		            border-radius: 8px;
+		            cursor: pointer;
+		            transition: background-color 0.3s ease, transform 0.2s ease;
+		        }
+
+		        .home-btn:hover {
+		            background-color: #45a049;
+		            transform: scale(1.05);
+		        }
+
+		        .home-btn:active {
+		            background-color: #3e8e41;
+		            transform: scale(0.98);
+		        }
+	</style>  
+</head>
+
+<body>
+	
+	<form th:action="@{/jobs/}" method="get">
+        <button type="submit" class="home-btn">Go Home</button>
+    </form>
+	<span th:text="${Error}">
+	</Span>
+
+
+</body>
+
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Company Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+	<link rel="stylesheet" th:href="@{/css/company-details.css}" />
+</head>
+<body class="container mt-4">
+<form th:action="@{/jobs/}" method="get">
+        <button type="submit" class="home-btn">Go Home</button>
+    </form>
+	
+<div th:if="${company != null}">
+    <h1 class="mb-4 text-center">Company Details</h1>
+
+    <div class="company-header">
+        <div>
+            <span class="company-id" th:text="'ID: ' + ${company.id}">ID: 1</span>
+            <span class="company-name" th:text="${company.name}">Example Company</span>
+        </div>
+        <a class="btn btn-sm btn-outline-primary"
+           data-bs-toggle="collapse"
+           th:href="'#desc-' + ${company.id}"
+           role="button"
+           aria-expanded="false"
+           th:attr="aria-controls='desc-' + ${company.id}">
+            More
+        </a>
+    </div>
+
+    <div class="collapse" th:id="'desc-' + ${company.id}">
+        <div class="card card-body">
+            <table class="table table-sm table-bordered">
+                <tbody>
+                    <tr>
+                        <td class="detail-label">Job Role</td>
+                        <td th:text="${company.jobRole}">Software Engineer</td>
+                    </tr>
+                    <tr>
+                        <td class="detail-label">Experience Required (Years)</td>
+                        <td th:text="${company.experienceRequired}">2.0</td>
+                    </tr>
+                    <tr>
+                        <td class="detail-label">Location</td>
+                        <td th:text="${company.location}">Mumbai</td>
+                    </tr>
+                    <tr>
+                        <td class="detail-label">Salary Range (LPA)</td>
+                        <td>₹<span th:text="${company.minsalaryRange}">5.0</span> - ₹<span th:text="${company.maxsalaryRange}">10.0</span></td>
+                    </tr>
+                    <tr>
+                        <td class="detail-label">Posting Date</td>
+                        <td th:text="${company.posting_date}">2025-07-22</td>
+                    </tr>
+                    <tr>
+                        <td class="detail-label">Application Deadline</td>
+                        <td th:text="${company.application_deadline}">2025-08-22</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <h3 class="mt-4">Required Skills</h3>
+    <table class="table table-bordered table-striped" th:if="${company.requiredSkills != null}">
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Skill Name</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="skill : ${company.requiredSkills.technicalSkills}">
+                <td>Technical</td>
+                <td th:text="${skill.key}">Java</td>
+                <td th:text="${#numbers.formatDecimal(skill.value, 1, 2)}">0.00</td>
+            </tr>
+            <tr th:each="skill : ${company.requiredSkills.developmentSkills}">
+                <td>Development</td>
+                <td th:text="${skill.key}">Spring</td>
+                <td th:text="${#numbers.formatDecimal(skill.value, 1, 2)}">0.00</td>
+            </tr>
+            <tr th:each="skill : ${company.requiredSkills.frameworkSkills}">
+                <td>Framework</td>
+                <td th:text="${skill.key}">Hibernate</td>
+                <td th:text="${#numbers.formatDecimal(skill.value, 1, 2)}">0.00</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p th:if="${company.requiredSkills == null}" class="text-muted">
+        No required skills listed.
+    </p>
+</div>
+
+<div th:unless="${company != null}" class="alert alert-danger text-center">
+    No company details found.
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

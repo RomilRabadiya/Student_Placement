@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>RequiredSkill-Form-Student</title>
+    <link rel="stylesheet" th:href="@{/css/RequiredSkill-Form-Student.css}">
+</head>
+<body>
+
+<h3>Select Skills</h3>
+<form th:action="@{/jobs/save-skills}" th:object="${studentReqiuredSkill}" method="post">
+
+    <fieldset>
+        <legend>Technical Skills</legend>
+        <div th:each="skill : ${newtechnicalSkills}">
+            <label>
+                <span th:text="${skill}"></span>
+                <input type="checkbox" th:field="*{technicalSkills}" th:value="${skill}" />
+            </label>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Development Skills</legend>
+        <div th:each="skill : ${newdevelopmentSkills}">
+            <label>
+                <span th:text="${skill}"></span>
+                <input type="checkbox" th:field="*{developmentSkills}" th:value="${skill}" />
+            </label>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Framework Skills</legend>
+        <div th:each="skill : ${newframeworkSkills}">
+            <label>
+                <span th:text="${skill}"></span>
+                <input type="checkbox" th:field="*{frameworkSkills}" th:value="${skill}" />
+            </label>
+        </div>
+    </fieldset>
+
+    <button type="submit">Submit</button>
+</form>
+
+</body>
+</html>

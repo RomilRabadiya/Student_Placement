@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head>
+    <title>Login Page</title>
+    <link rel="stylesheet" th:href="@{/css/LoginPage.css}">
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Login</h2>
+
+        <div th:if="${param.logout}">
+            <p>Logout Successfully. Please login again.</p>
+        </div>
+
+        <div th:if="${param.error}">
+            <p>Something went wrong. Please check your credentials.</p>
+        </div>
+
+        <form th:action="@{/jobs/authenticateTheUser}" method="POST">
+            <label for="username">User Name:</label>
+            <input type="text" id="username" name="username" />
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" />
+
+            <input type="submit" value="Login" />
+        </form>
+
+        <a th:href="@{/jobs/Register}" class="register-link">
+            Register
+        </a>
+    </div>
+
+</body>
+</html>

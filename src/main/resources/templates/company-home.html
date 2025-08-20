@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Student_Placement</title>
+	<link rel="stylesheet" th:href="@{/css/company-home.css}">
+    </head>
+
+	<body>
+		
+	<form th:action="@{/logout}" method="post">
+	    <button type="submit" class="logout-btn">🚪 Logout</button>
+	</form>
+
+	    <div class="dashboard-container">
+	        <div class="header">
+	            <h1>Company Dashboard</h1>
+	            <p class="subtitle">Student Placement Management System</p>
+	        </div>
+
+	        <div class="user-info">
+	            <h3>Welcome Back!</h3>
+	            <div class="info-grid">
+	                <div class="info-item">
+	                    <span class="info-label">User ID</span>
+	                    <span class="info-value" th:text="${LoginUser.userId}">User123</span>
+	                </div>
+	                <div class="info-item">
+	                    <span class="info-label">Role</span>
+	                    <span class="info-value" th:text="${LoginUser.role.roleName}">Admin</span>
+	                </div>
+	            </div>
+	        </div>
+
+	        <div class="action-section">
+	            <h2 class="action-title">ATS Score Management</h2>
+	            <p class="action-description">
+	                Sort and review students who have applied to your company based on their ATS (Applicant Tracking System) scores.
+	            </p>
+	            <a th:href="@{/jobs/Generate_ATS_Score}" class="action-link">
+	                View Student Rankings
+	            </a>
+	        </div>
+	    </div>
+	</body>
+</html>

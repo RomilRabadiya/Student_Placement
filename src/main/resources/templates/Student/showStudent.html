@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Show Student</title>
+	<link rel="stylesheet" th:href="@{/css/showStudent.css}">
+</head>
+<body>
+	
+	<form th:action="@{/jobs/}" method="get">
+        <button type="submit" class="home-btn">Go Home</button>
+    </form>
+<h2>Student Details</h2>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <td th:text="${student.id}"></td>
+    </tr>
+    <tr>
+        <th>First Name</th>
+        <td th:text="${student.firstName}"></td>
+    </tr>
+    <tr>
+        <th>Last Name</th>
+        <td th:text="${student.lastName}"></td>
+    </tr>
+    <tr>
+        <th>Email</th>
+        <td th:text="${student.email}"></td>
+    </tr>
+    <tr>
+        <th>Department</th>
+        <td th:text="${student.department}"></td>
+    </tr>
+    <tr>
+        <th>Placement Status</th>
+        <td th:text="${student.placementStatus}"></td>
+    </tr>
+    <tr>
+        <th>CGPA</th>
+        <td th:text="${student.cgpa}"></td>
+    </tr>
+    <tr>
+        <th>GitHub URL</th>
+        <td><a th:href="${student.githubUrl}" th:text="${student.githubUrl}"></a></td>
+    </tr>
+    <tr>
+        <th>LinkedIn</th>
+        <td><a th:href="${student.linkedinProfile}" th:text="${student.linkedinProfile}"></a></td>
+    </tr>
+    <tr>
+        <th>Certificates</th>
+        <td th:text="${student.certificates}"></td>
+    </tr>
+    <tr>
+        <th>Resume URL</th>
+        <td><a th:href="${student.resumeUrl}" th:text="${student.resumeUrl}"></a></td>
+    </tr>
+    <tr>
+        <th>Enrollment Date</th>
+        <td th:text="${student.enrollmentDate}"></td>
+    </tr>
+    <tr>
+        <th>Graduation Date</th>
+        <td th:text="${student.graduationDate}"></td>
+    </tr>
+</table>
+
+<h3>Required Skills</h3>
+
+<h4>Technical Skills</h4>
+<ul>
+    <span th:each="entry : ${student.requiredSkills.technicalSkills}">
+        <span th:text="${entry.key}">Skill</span>
+    </span>
+</ul>
+
+<h4>Development Skills</h4>
+<ul>
+    <li th:each="entry : ${student.requiredSkills.developmentSkills}">
+		<span th:text="${entry.key}">Skill</span>
+	</li>
+</ul>
+
+<h4>Framework Skills</h4>
+<ul>
+    <li th:each="entry : ${student.requiredSkills.frameworkSkills}">
+		<span th:text="${entry.key}">Skill</span>
+	</li>
+</ul>
+
+</body>
+</html>

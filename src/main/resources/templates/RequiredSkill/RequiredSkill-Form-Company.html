@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>RequiredSkill-Form-Company</title>
+    <link rel="stylesheet" th:href="@{/css/RequiredSkill-Form-Company.css}">
+</head>
+<body>
+
+<h3>Select Skills</h3>
+<form th:action="@{/jobs/save-company-skills}" th:object="${companyRequiredSkill}" method="post">
+
+    <fieldset>
+        <legend>Technical Skills</legend>
+        <th:block th:each="techSkill, iterStat : *{technicalSkills}">
+            <label>
+                <span th:text="${techSkill.key}"></span>
+                <input type="hidden"
+                       th:field="*{technicalSkills[__${iterStat.index}__].key}"
+                       th:value="${techSkill.key}" />
+                <input type="text"
+                       th:field="*{technicalSkills[__${iterStat.index}__].value}"
+                       th:value="${techSkill.value}" />
+            </label>
+        </th:block>
+    </fieldset>
+
+    <fieldset>
+        <legend>Development Skills</legend>
+        <th:block th:each="devSkill, iterStat : *{developmentSkills}">
+            <label>
+                <span th:text="${devSkill.key}"></span>
+                <input type="hidden"
+                       th:field="*{developmentSkills[__${iterStat.index}__].key}"
+                       th:value="${devSkill.key}" />
+                <input type="text"
+                       th:field="*{developmentSkills[__${iterStat.index}__].value}"
+                       th:value="${devSkill.value}" />
+            </label>
+        </th:block>
+    </fieldset>
+
+    <fieldset>
+        <legend>Framework Skills</legend>
+        <th:block th:each="fwSkill, iterStat : *{frameworkSkills}">
+            <label>
+                <span th:text="${fwSkill.key}"></span>
+                <input type="hidden"
+                       th:field="*{frameworkSkills[__${iterStat.index}__].key}"
+                       th:value="${fwSkill.key}" />
+                <input type="text"
+                       th:field="*{frameworkSkills[__${iterStat.index}__].value}"
+                       th:value="${fwSkill.value}" />
+            </label>
+        </th:block>
+    </fieldset>
+
+    <button type="submit">Submit</button>
+</form>
+
+</body>
+</html>

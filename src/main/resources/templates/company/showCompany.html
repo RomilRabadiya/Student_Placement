@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Company Details</title>
+    <link rel="stylesheet" th:href="@{/css/showCompany.css}">
+</head>
+<body>
+	
+	
+	<form th:action="@{/jobs/}" method="get">
+        <button type="submit" class="home-btn">Go Home</button>
+    </form>
+	
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                Company Job Details
+            </div>
+            <div class="card-body">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>ID</th>
+                            <td th:text="${company.id}">1</td>
+                        </tr>
+                        <tr>
+                            <th>Name</th>
+                            <td th:text="${company.name}">Example Company</td>
+                        </tr>
+                        <tr>
+                            <th>Job Role</th>
+                            <td th:text="${company.jobRole}">Software Engineer</td>
+                        </tr>
+                        <tr>
+                            <th>Experience Required (Years)</th>
+                            <td th:text="${company.experienceRequired}">2.0</td>
+                        </tr>
+                        <tr>
+                            <th>Location</th>
+                            <td th:text="${company.location}">Mumbai</td>
+                        </tr>
+                        <tr>
+                            <th>Minimum Salary (LPA)</th>
+                            <td th:text="${company.minsalaryRange}">5.0</td>
+                        </tr>
+                        <tr>
+                            <th>Maximum Salary (LPA)</th>
+                            <td th:text="${company.maxsalaryRange}">10.0</td>
+                        </tr>
+                        <tr>
+                            <th>Posting Date</th>
+                            <td th:text="${company.posting_date}">2025-07-22</td>
+                        </tr>
+                        <tr>
+                            <th>Application Deadline</th>
+                            <td th:text="${company.application_deadline}">2025-08-22</td>
+                        </tr>
+                        <tr>
+                            <th>Required Skills</th>
+                            <td>
+                                <strong>Technical:</strong>
+                                <span th:each="entry : ${company.requiredSkills.technicalSkills}">
+                                    <span th:text="${entry.key}">Skill</span>
+                                    (
+                                    <span th:text="${#numbers.formatDecimal(entry.value, 1, 'POINT', 2, 'POINT')}">0.00</span>
+                                    ),
+                                </span>
+                                <br>
+
+                                <strong>Development:</strong>
+                                <span th:each="entry : ${company.requiredSkills.developmentSkills}">
+                                    <span th:text="${entry.key}">Skill</span>
+                                    (
+                                    <span th:text="${#numbers.formatDecimal(entry.value, 1, 'POINT', 2, 'POINT')}">0.00</span>
+                                    ),
+                                </span>
+                                <br>
+
+                                <strong>Framework:</strong>
+                                <span th:each="entry : ${company.requiredSkills.frameworkSkills}">
+                                    <span th:text="${entry.key}">Skill</span>
+                                    (
+                                    <span th:text="${#numbers.formatDecimal(entry.value, 1, 'POINT', 2, 'POINT')}">0.00</span>
+                                    ),
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

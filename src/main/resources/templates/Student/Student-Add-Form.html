@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Student-Add-Form</title>
+	<link rel="stylesheet" th:href="@{/css/Student-Add-Form.css}">
+</head>
+<body>
+
+    <h2>Student Registration Form</h2>
+
+    <form th:action="@{/jobs/addRequiredSkill}" th:object="${student}" method="post">
+    
+        <label>First Name:</label>
+        <input type="text" th:field="*{firstName}" />
+    
+        <label>Last Name:</label>
+        <input type="text" th:field="*{lastName}" />
+    
+        <label>Email:</label>
+        <input type="email" th:field="*{email}" />
+    
+        <label>Department:</label>
+        <input type="text" th:field="*{department}" />
+    
+        <label>Placement Status:</label>
+        <input type="text" th:field="*{placementStatus}" />
+    
+        <label>CGPA:</label>
+        <input type="number" step="0.01" th:field="*{cgpa}" />
+    
+        <label>GitHub URL:</label>
+        <input type="text" th:field="*{githubUrl}" />
+    
+        <label>LinkedIn Profile:</label>
+        <input type="text" th:field="*{linkedinProfile}" />
+    
+        <label>Certificates:</label>
+        <input type="text" th:field="*{certificates}" />
+    
+        <label>Resume URL:</label>
+        <input type="text" th:field="*{resumeUrl}" />
+    
+        <label>Graduation Date:</label>
+        <input type="date" th:field="*{graduationDate}" />
+    
+        <hr/>
+    
+        <button type="submit">Submit</button>
+    </form>
+
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Student_Placement</title>  
+	<link rel="stylesheet" th:href="@{/css/student-home.css}">
+
+    <script>
+        // Simple collapse toggle without Bootstrap
+        function toggleCollapse(id) {
+            const element = document.getElementById(id);
+            element.classList.toggle('show');
+        }
+    </script>
+</head>
+
+<body>
+	
+	<form th:action="@{/logout}" method="post">
+	    <button type="submit" class="logout-btn">🚪 Logout</button>
+	</form>
+
+	
+	<div class="dashboard-container">
+        <div class="header">
+            <h1>Student Dashboard</h1>
+            <p class="subtitle">Student Placement Management System</p>
+        </div>
+
+        <div class="user-info">
+            <h3>Welcome Back!</h3>
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="info-label">User ID</span>
+                    <span class="info-value" th:text="${LoginUser.userId}">User123</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Role</span>
+                    <span class="info-value" th:text="${LoginUser.role.roleName}">Admin</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-section">
+			<h2 class="action-title">Check Your Status For Apply Company</h2>
+			<p class="action-description">
+			    Sort and review students who have applied to your company based on their ATS (Applicant Tracking System) scores.
+			</p>
+            <a th:href="@{/jobs/offered_company}" class="action-link">
+                Offered Company
+            </a>
+        </div>
+    </div>
+    
+    
+    <div class="container">
+
+        <h1>Companies List</h1>
+
+        <div th:if="${#lists.isEmpty(companies)}" class="alert">
+            No companies found.
+        </div>
+
+        <div th:each="company : ${companies}" class="company-card">
+            <div class="company-header">
+                <div>
+                    <span class="company-id" th:text="'ID: ' + ${company.id}">ID: 1</span>
+                    <span class="company-name" th:text="${company.name}">Example Company</span>
+                </div>
+
+                <div style="display:flex; gap:8px;">
+                    <button type="button" class="btn btn-more"
+                            th:attr="onclick=|toggleCollapse('desc-' + ${company.id})|">
+                        More
+                    </button>
+
+                    <form th:action="@{/jobs/applyForCompany/{id}(id=${company.id})}" method="post" style="margin:0;">
+                        <input type="hidden" name="companyId" th:value="${company.id}">
+                        <button type="submit" class="btn btn-apply">Apply</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="collapse" th:id="'desc-' + ${company.id}">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Job Role</th>
+                            <td th:text="${company.jobRole}">Software Engineer</td>
+                        </tr>
+                        <tr>
+                            <th>Experience Required (Years)</th>
+                            <td th:text="${company.experienceRequired}">2.0</td>
+                        </tr>
+                        <tr>
+                            <th>Location</th>
+                            <td th:text="${company.location}">Mumbai</td>
+                        </tr>
+                        <tr>
+                            <th>Salary Range (LPA)</th>
+                            <td>
+                                ₹<span th:text="${company.minsalaryRange}">5.0</span> - 
+                                ₹<span th:text="${company.maxsalaryRange}">10.0</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Posting Date</th>
+                            <td th:text="${company.posting_date}">2025-07-22</td>
+                        </tr>
+                        <tr>
+                            <th>Application Deadline</th>
+                            <td th:text="${company.application_deadline}">2025-08-22</td>
+                        </tr>
+                        <tr>
+                            <th>Required Skills</th>
+                            <td>
+                                <table class="required-skills-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Category</th>
+                                            <th>Skill</th>
+                                            <th>Value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody th:if="${company.requiredSkills != null}">
+                                        <tr th:each="skill : ${company.requiredSkills.technicalSkills}">
+                                            <td>Technical</td>
+                                            <td th:text="${skill.key}">Skill</td>
+                                            <td th:text="${#numbers.formatDecimal(skill.value, 1, 2)}">0.00</td>
+                                        </tr>
+                                        <tr th:each="skill : ${company.requiredSkills.developmentSkills}">
+                                            <td>Development</td>
+                                            <td th:text="${skill.key}">Skill</td>
+                                            <td th:text="${#numbers.formatDecimal(skill.value, 1, 2)}">0.00</td>
+                                        </tr>
+                                        <tr th:each="skill : ${company.requiredSkills.frameworkSkills}">
+                                            <td>Framework</td>
+                                            <td th:text="${skill.key}">Skill</td>
+                                            <td th:text="${#numbers.formatDecimal(skill.value, 1, 2)}">0.00</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

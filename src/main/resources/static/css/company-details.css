@@ -1,0 +1,70 @@
+.home-btn {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.home-btn:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+.home-btn:active {
+    background-color: #3e8e41;
+    transform: scale(0.98);
+}
+/* Company header container */
+.company-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    margin-bottom: 1rem;
+}
+
+/* Company ID text */
+.company-id {
+    font-weight: bold;
+    color: #6c757d;
+    margin-right: 10px;
+}
+
+/* Company name */
+.company-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+/* Table label column */
+.detail-label {
+    font-weight: 600;
+    width: 180px;
+    background-color: #f1f1f1;
+}
+
+/* Card body inside collapse */
+.card-body {
+    background-color: #ffffff;
+}
+
+/* Required Skills table striped effect */
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f9f9f9;
+}
+
+/* Responsive design tweaks */
+@media (max-width: 576px) {
+    .company-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

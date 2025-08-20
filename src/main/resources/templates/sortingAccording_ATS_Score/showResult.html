@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Student ATS Scores</title>
+	<link rel="stylesheet" th:href="@{/css/showResult.css}">
+</head>
+<body>
+	<form th:action="@{/jobs/}" method="get">
+        <button type="submit" class="home-btn">Go Home</button>
+    </form>
+    <form th:action="@{/jobs/submit}" method="post">
+        <div class="container">
+            <h2>Student ATS Score Ranking System</h2>
+
+            <div th:if="${#lists.isEmpty(Result)}" class="alert-info">
+                No students found matching the criteria.
+            </div>
+
+            <p class="instruction-text">Select students you want to hire based on their ATS scores</p>
+
+            <div th:each="pair, stat : ${Result}" class="result-card">
+                <div class="card-header">
+                    <!-- Checkbox Column -->
+                    <div class="checkbox-column">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" name="selectedIds" th:value="${pair.st.id}" />
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+
+                    <!-- ATS Score Column -->
+                    <div class="ats-score-column">
+                        <div class="ats-badge" 
+                             th:classappend="${pair.ats_score >= 0.8} ? 'ats-excellent' : (${pair.ats_score >= 0.6} ? 'ats-good' : (${pair.ats_score >= 0.4} ? 'ats-average' : 'ats-poor'))">
+                            <span class="score-label">ATS Score</span>
+                            <span th:text="${#numbers.formatDecimal(pair.ats_score, 1, 2)}">0.00</span>
+                        </div>
+                    </div>
+
+                    <!-- Student Info Column -->
+                    <div class="student-info-column">
+                        <div class="student-name">
+                            <span th:text="${pair.st.firstName + ' ' + pair.st.lastName}">John Doe</span>
+                            <span class="student-id" th:text="'ID: ' + ${pair.st.id}">ID: 1</span>
+                        </div>
+                        <a th:href="${pair.st.githubUrl}" target="_blank" rel="noopener" class="github-link">
+                            View GitHub Profile
+                        </a>
+                    </div>
+
+                    <!-- Toggle Button -->
+                    <button class="btn-toggle" type="button" onclick="toggleDetails(this)">
+                        More Details
+                    </button>
+                </div>
+
+                <div class="collapse-content" th:id="'details-' + ${pair.st.id}">
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <span class="detail-label">Email:</span>
+                            <span class="detail-value" th:text="${pair.st.email}">john@example.com</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Department:</span>
+                            <span class="detail-value" th:text="${pair.st.department}">CSE</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">CGPA:</span>
+                            <span class="detail-value" th:text="${pair.st.cgpa}">9.0</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Status:</span>
+                            <span class="detail-value" th:text="${pair.st.placementStatus}">Placed</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">LinkedIn:</span>
+                            <a class="detail-value" th:href="${pair.st.linkedinProfile}" target="_blank" rel="noopener">View Profile</a>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Certificates:</span>
+                            <span class="detail-value" th:text="${pair.st.certificates}">Java, AWS</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Resume:</span>
+                            <a class="detail-value" th:href="${pair.st.resumeUrl}" target="_blank" rel="noopener">Download PDF</a>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Enrollment:</span>
+                            <span class="detail-value" th:text="${pair.st.enrollmentDate}">2024-01-01</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Graduation:</span>
+                            <span class="detail-value" th:text="${pair.st.graduationDate}">2028-01-01</span>
+                        </div>
+                    </div>
+
+                    <div class="skills-section" th:if="${pair.st.requiredSkills != null}">
+                        <h3 style="margin-bottom: 16px; color: #2d3436;">Technical Skills</h3>
+                        <table class="skills-table">
+                            <thead>
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Skill</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="skill : ${pair.st.requiredSkills.technicalSkills}">
+                                    <td class="skill-category">Technical</td>
+                                    <td class="skill-name" th:text="${skill.key}">Skill</td>
+                                </tr>
+                                <tr th:each="skill : ${pair.st.requiredSkills.developmentSkills}">
+                                    <td class="skill-category">Development</td>
+                                    <td class="skill-name" th:text="${skill.key}">Skill</td>
+                                </tr>
+                                <tr th:each="skill : ${pair.st.requiredSkills.frameworkSkills}">
+                                    <td class="skill-category">Framework</td>
+                                    <td class="skill-name" th:text="${skill.key}">Skill</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="submit-container">
+            <button type="submit" class="submit-btn">Hire Selected Students</button>
+        </div>
+    </form>
+	
+	<script>
+		function toggleDetails(button) {
+		    // Get the parent result card
+		    const resultCard = button.closest('.result-card');
+		    
+		    // Find the collapse content within this card
+		    const collapseContent = resultCard.querySelector('.collapse-content');
+		    
+		    // Toggle the display
+		    if (collapseContent.style.display === 'none' || collapseContent.style.display === '') {
+		        collapseContent.style.display = 'block';
+		        button.textContent = 'Hide Details';
+		        button.style.background = 'linear-gradient(135deg, #e84393, #d63031)';
+		    } else {
+		        collapseContent.style.display = 'none';
+		        button.textContent = 'More Details';
+		        button.style.background = 'linear-gradient(135deg, #74b9ff, #0984e3)';
+		    }
+		}
+	</script>
+</body>
+</html>

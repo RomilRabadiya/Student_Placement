@@ -1,0 +1,98 @@
+/* General page styles */
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Container layout */
+.container {
+    margin: 50px auto;
+    max-width: 900px;
+}
+
+/* Company card styling */
+.company-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 20px 25px;
+    margin-bottom: 20px;
+}
+
+/* Company header row */
+.company-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+/* Company ID label */
+.company-id {
+    font-weight: 700;
+    color: #0d6efd;
+    margin-right: 15px;
+}
+
+/* Company name */
+.company-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    flex-grow: 1;
+}
+
+/* More button styling */
+.btn-outline-primary {
+    font-weight: 600;
+}
+
+/* Compact tables */
+table.table-sm {
+    margin-bottom: 0;
+}
+
+/* Company details table header cells */
+.company-description table th {
+    background-color: #e9ecef;
+    font-weight: 600;
+    width: 180px;
+}
+
+/* Required skills table header cells */
+.required-skills-table thead th {
+    background-color: #0d6efd;
+    color: white;
+    font-weight: 600;
+    text-align: left;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+    .company-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+
+.home-btn {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.home-btn:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+.home-btn:active {
+    background-color: #3e8e41;
+    transform: scale(0.98);
+}

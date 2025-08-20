@@ -1,0 +1,49 @@
+<!-- templates/company-add-form.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Company</title>
+    <meta charset="UTF-8" />
+	<link rel="stylesheet" th:href="@{/css/company-add-form.css}" />
+</head>
+<body>
+    <h1>Add Company</h1>
+    <form th:action="@{/jobs/AddCompanyRequiredSkill}" th:object="${company}" method="post">
+        <div>
+            <label for="name">Company Name:</label>
+            <input type="text" id="name" th:field="*{name}" required />
+        </div>
+        <div>
+            <label for="jobRole">Job Role:</label>
+            <input type="text" id="jobRole" th:field="*{jobRole}"/>
+        </div>
+        <div>
+            <label for="experienceRequired">Experience Required (Years):</label>
+            <input type="number" step="0.1" id="experienceRequired" th:field="*{experienceRequired}" min="0" />
+        </div>
+        <div>
+            <label for="location">Location:</label>
+            <input type="text" id="location" th:field="*{location}"/>
+        </div>
+        <div>
+            <label for="minsalaryRange">Minimum Salary Range:</label>
+            <input type="number" step="0.01" id="minsalaryRange" th:field="*{minsalaryRange}" min="0" />
+        </div>
+        <div>
+            <label for="maxsalaryRange">Maximum Salary Range:</label>
+            <input type="number" step="0.01" id="maxsalaryRange" th:field="*{maxsalaryRange}" min="0"/>
+        </div>
+        <div>
+            <label for="posting_date">Posting Date:</label>
+            <input type="date" id="posting_date" th:field="*{posting_date}"/>
+        </div>
+        <div>
+            <label for="application_deadline">Application Deadline:</label>
+            <input type="date" id="application_deadline" th:field="*{application_deadline}"/>
+        </div>
+        <div>
+            <button type="submit">Add Company</button>
+        </div>
+    </form>
+</body>
+</html>
