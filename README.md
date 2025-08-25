@@ -178,7 +178,6 @@ It centralizes the management of students, companies, required skills, applicati
 - Saves a `HiredRelation` between CompanyId ↔ StudentId.  
 - Results shown in `ShowSelectedStudent` page.  
 
-![Company Selects Students](assets/company-select.png)
 
 ---
 
@@ -186,4 +185,3 @@ It centralizes the management of students, companies, required skills, applicati
 - Students check `/jobs/offered_company` for selected companies.  
 - System fetches `HiredRelation` and displays results.  
 
-![Student Notification](assets/student-notification.png)
